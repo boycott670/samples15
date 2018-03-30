@@ -16,5 +16,12 @@ public class ChargingCity extends City
 	{
 		return kwhPerHour * hoursOfCharge;
 	}
+
+	@Override
+	public boolean shouldVerify()
+	{
+		// TODO Auto-generated method stub
+		return true;
+	}
 	
 }

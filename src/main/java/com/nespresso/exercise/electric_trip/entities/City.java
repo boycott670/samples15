@@ -57,4 +57,9 @@ public class City
 	{
 		return 0;
 	}
+	
+	public boolean shouldVerify ()
+	{
+		return false;
+	}
 }

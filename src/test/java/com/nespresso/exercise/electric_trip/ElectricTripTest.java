@@ -98,4 +98,26 @@ public class ElectricTripTest
 		assertThat(trip.chargeOf(id), is(chargeOnArrival));
 	}
 
+	@Test
+	public void shouldStopAtChargingLocationToReachFinalDestination()
+	{
+		ElectricTrip trip = new ElectricTrip(
+				"PARIS-250-LIMOGES:25-100-BORDEAUX-200-TOULOUSE:50-50-MONTPELLIER-200-MARSEILLES");
+		int id = trip.startTripIn("PARIS", 85, 5, 3);
+		trip.go(id);
+		assertThat(trip.locationOf(id), is("LIMOGES"));
+		assertThat(trip.chargeOf(id), is("41%"));
+		trip.charge(id, 4);
+		trip.go(id);
+		assertThat(trip.locationOf(id), is("TOULOUSE"));
+		assertThat(trip.chargeOf(id), is("29%"));
+		trip.go(id);
+		assertThat(trip.locationOf(id), is("TOULOUSE"));
+		assertThat(trip.chargeOf(id), is("29%"));
+		trip.charge(id, 2);
+		trip.go(id);
+		assertThat(trip.locationOf(id), is("MARSEILLES"));
+		assertThat(trip.chargeOf(id), is("41%"));
+	}
+
 }

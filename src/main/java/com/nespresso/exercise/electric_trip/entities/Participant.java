@@ -18,10 +18,30 @@ public class Participant
 		
 		currentBatteryLevel = this.batterySize;
 	}
+
+	private int remainingKilometers ()
+	{
+		City currentCity = this.currentCity;
+		
+		int remainingKilometers = 0;
+		
+		while (currentCity.hasNextCity())
+		{
+			remainingKilometers += currentCity.getDistanceInKilometersToNextCity();
+			currentCity = currentCity.getNextCity();
+		}
+		
+		return remainingKilometers;
+	}
+	
+	private boolean shouldStop (final int kmsPerKwh)
+	{
+		return currentCity.shouldVerify() && currentBatteryLevel < batterySize && currentBatteryLevel * kmsPerKwh < remainingKilometers();
+	}
 	
 	private void advanceByConsuming (final int kmsPerKwh)
 	{
-		while (currentCity.hasNextCity() && currentBatteryLevel >= Integer.valueOf(currentCity.getDistanceInKilometersToNextCity()).doubleValue() / kmsPerKwh)
+		while (!shouldStop(kmsPerKwh) && currentCity.hasNextCity() && currentBatteryLevel >= Integer.valueOf(currentCity.getDistanceInKilometersToNextCity()).doubleValue() / kmsPerKwh)
 		{
 			currentBatteryLevel -= Integer.valueOf(currentCity.getDistanceInKilometersToNextCity()).doubleValue() / kmsPerKwh;
 			currentCity = currentCity.getNextCity();
@@ -51,5 +71,10 @@ public class Participant
 	public void charge (int hoursOfCharge)
 	{
 		currentBatteryLevel += currentCity.charge(hoursOfCharge);
+		
+		if (currentBatteryLevel > batterySize)
+		{
+			currentBatteryLevel = batterySize;
+		}
 	}
 }
