@@ -21,4 +21,14 @@ public class ElectricTripTest
 		assertThat(trip.chargeOf(participantId), is("53%")); // % is rounded to closest integer
 	}
 
+	@Test
+	public void shouldGoToFinalDestination()
+	{
+		ElectricTrip trip = new ElectricTrip("PARIS-250-LIMOGES-100-BORDEAUX");
+		int participantId = trip.startTripIn("PARIS", 85, 5, 5);
+		trip.go(participantId);
+		assertThat(trip.locationOf(participantId), is("BORDEAUX"));
+		assertThat(trip.chargeOf(participantId), is("18%"));
+	}
+
 }
