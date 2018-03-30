@@ -52,4 +52,9 @@ public class City
 		
 		return distanceInKilometersToNextCity;
 	}
+	
+	public int charge (final int hoursOfCharge)
+	{
+		return 0;
+	}
 }

@@ -47,4 +47,9 @@ public class ElectricTrip
 	{
 		return String.format("%.0f%%", participants.get(participantId).chargeOf() * 100);
 	}
+	
+	public void charge (int participantId, int hoursOfCharge)
+	{
+		participants.get(participantId).charge(hoursOfCharge);
+	}
 }

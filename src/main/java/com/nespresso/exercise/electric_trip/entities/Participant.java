@@ -47,4 +47,9 @@ public class Participant
 	{
 		return currentBatteryLevel / batterySize;
 	}
+	
+	public void charge (int hoursOfCharge)
+	{
+		currentBatteryLevel += currentCity.charge(hoursOfCharge);
+	}
 }
