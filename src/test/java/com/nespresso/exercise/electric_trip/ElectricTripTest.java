@@ -31,4 +31,17 @@ public class ElectricTripTest
 		assertThat(trip.chargeOf(participantId), is("18%"));
 	}
 
+	@Test
+	public void shouldStayAtIntermediateStopIfNotEnoughCharge()
+	{
+		ElectricTrip trip = new ElectricTrip("PARIS-250-LIMOGES-500-MARSEILLES");
+		int participantId = trip.startTripIn("PARIS", 85, 5, 5);
+		trip.go(participantId);
+		assertThat(trip.locationOf(participantId), is("LIMOGES"));
+		assertThat(trip.chargeOf(participantId), is("41%"));
+		trip.go(participantId);
+		assertThat(trip.locationOf(participantId), is("LIMOGES"));
+		assertThat(trip.chargeOf(participantId), is("41%"));
+	}
+
 }
