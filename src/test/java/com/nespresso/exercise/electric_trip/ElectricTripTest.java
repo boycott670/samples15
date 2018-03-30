@@ -84,4 +84,18 @@ public class ElectricTripTest
 		assertThat(trip.chargeOf(id), is("51%"));
 	}
 
+	@Test
+	public void shouldNotChargeIfNoChargingAtLocation()
+	{
+		ElectricTrip trip = new ElectricTrip("LIMOGES:25-100-BORDEAUX-400-MARSEILLES");
+		int id = trip.startTripIn("LIMOGES", 85, 5, 3);
+		trip.go(id);
+		assertThat(trip.locationOf(id), is("BORDEAUX"));
+		String chargeOnArrival = trip.chargeOf(id);
+		trip.charge(id, 4);
+		trip.go(id);
+		assertThat(trip.locationOf(id), is("BORDEAUX"));
+		assertThat(trip.chargeOf(id), is(chargeOnArrival));
+	}
+
 }
