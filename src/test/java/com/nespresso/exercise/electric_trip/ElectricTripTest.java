@@ -44,4 +44,14 @@ public class ElectricTripTest
 		assertThat(trip.chargeOf(participantId), is("41%"));
 	}
 
+	@Test
+	public void shouldConsumeMoreWhenSprinting()
+	{
+		ElectricTrip trip = new ElectricTrip("PARIS-250-LIMOGES-100-BORDEAUX");
+		int participantId = trip.startTripIn("PARIS", 85, 5, 3);
+		trip.sprint(participantId);
+		assertThat(trip.locationOf(participantId), is("LIMOGES"));
+		assertThat(trip.chargeOf(participantId), is("2%"));
+	}
+
 }

@@ -33,6 +33,11 @@ public class ElectricTrip
 		participants.get(participantId).go();
 	}
 	
+	public void sprint (int participantId)
+	{
+		participants.get(participantId).sprint();
+	}
+	
 	public String locationOf (int participantId)
 	{
 		return participants.get(participantId).locationOf().getName();

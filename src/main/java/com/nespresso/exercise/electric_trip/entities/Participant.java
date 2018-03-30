@@ -19,13 +19,23 @@ public class Participant
 		currentBatteryLevel = this.batterySize;
 	}
 	
-	public void go ()
+	private void advanceByConsuming (final int kmsPerKwh)
 	{
-		while (currentCity.hasNextCity() && currentBatteryLevel >= Integer.valueOf(currentCity.getDistanceInKilometersToNextCity()).doubleValue() / lowSpeedPerformance)
+		while (currentCity.hasNextCity() && currentBatteryLevel >= Integer.valueOf(currentCity.getDistanceInKilometersToNextCity()).doubleValue() / kmsPerKwh)
 		{
-			currentBatteryLevel -= Integer.valueOf(currentCity.getDistanceInKilometersToNextCity()).doubleValue() / lowSpeedPerformance;
+			currentBatteryLevel -= Integer.valueOf(currentCity.getDistanceInKilometersToNextCity()).doubleValue() / kmsPerKwh;
 			currentCity = currentCity.getNextCity();
 		}
+	}
+	
+	public void go ()
+	{
+		advanceByConsuming(lowSpeedPerformance);
+	}
+	
+	public void sprint ()
+	{
+		advanceByConsuming(highSpeedPerformance);
 	}
 	
 	public City locationOf ()
