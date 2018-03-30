@@ -54,4 +54,18 @@ public class ElectricTripTest
 		assertThat(trip.chargeOf(participantId), is("2%"));
 	}
 
+	@Test
+	public void shouldMoveMultipleParticipantsAccordingly()
+	{
+		ElectricTrip trip = new ElectricTrip("PARIS-250-LIMOGES-100-BORDEAUX");
+		int id1 = trip.startTripIn("PARIS", 85, 5, 3);
+		int id2 = trip.startTripIn("LIMOGES", 70, 5, 3);
+		trip.sprint(id1);
+		trip.go(id2);
+		assertThat(trip.locationOf(id1), is("LIMOGES"));
+		assertThat(trip.chargeOf(id1), is("2%"));
+		assertThat(trip.locationOf(id2), is("BORDEAUX"));
+		assertThat(trip.chargeOf(id2), is("71%"));
+	}
+
 }
